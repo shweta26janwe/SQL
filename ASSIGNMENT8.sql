@@ -1,0 +1,478 @@
+--PART A – COMPLETE DATASET SETUP
+--1. DEPARTMENT TABLE
+CREATE TABLE DEPARTMENT_CONSOLIDATED
+(
+ DEPT_ID INT PRIMARY KEY,
+ DEPT_NAME VARCHAR(50) NOT NULL,
+ DEPT_LOCATION VARCHAR(50)
+);
+
+
+INSERT INTO DEPARTMENT_CONSOLIDATED VALUES
+(10,'IT','PUNE'),
+(20,'HR','MUMBAI'),
+(30,'FINANCE','NAGPUR'),
+(40,'SALES','KOTA'),
+(50,'OPERATIONS','HYDERABAD'),
+(60,'MARKETING','DELHI');
+
+--2. EMPLOYEE TABLE
+CREATE TABLE EMPLOYEE_CONSOLIDATED
+(
+ EMP_ID INT PRIMARY KEY,
+ EMP_NAME VARCHAR(60) NOT NULL,
+ DEPT_ID INT NULL,
+ MANAGER_ID INT NULL,
+ EMP_CITY VARCHAR(30),
+ EMP_SALARY INT NULL,
+ EMP_EMAIL VARCHAR(100) NULL,
+ JOIN_DATE DATE
+);
+
+INSERT INTO EMPLOYEE_CONSOLIDATED VALUES
+(101,'Amit',10,109,'PUNE',5500,'amit@gmail.com','2023-01-15'),
+(102,'Riya',20,110,'MUMBAI',4800,'riya@gmail.com','2024-02-10'),
+(103,'Rohan',10,109,'PUNE',6500,'rohan@gmail.com','2022-07-21'),
+(104,'Sneha',30,111,'NAGPUR',5200,'sneha@gmail.com','2023-11-05'),
+(105,'Raj',40,112,'KOTA',7000,'raj@gmail.com','2021-05-12'),
+(106,'Seema',20,110,'PUNE',4300,'seema@gmail.com','2024-06-18'),
+(107,'Ravi',40,112,'MUMBAI',6200,'ravi@gmail.com','2022-09-01'),
+(108,'Pooja',30,111,'NAGPUR',5100,'pooja@gmail.com','2023-03-25'),
+(109,'Sachin',10,NULL,'PUNE',8200,'sachin@gmail.com','2020-01-10'),
+(110,'Neha',20,NULL,'MUMBAI',7800,'neha@gmail.com','2019-08-16'),
+(111,'Kiran',30,NULL,'NAGPUR',7600,'kiran@gmail.com','2020-10-20'),
+(112,'Rakesh',40,NULL,'KOTA',8000,'rakesh@gmail.com','2018-04-05'),
+(113,'Meena',NULL,109,'DELHI',4700,NULL,'2024-01-08'),
+(114,'Sunita',50,112,'HYDERABAD',5400,'sunita@gmail.com','2023-08-11'),
+(115,'Rohan Kumar',10,109,'PUNE',5900,'rohank@gmail.com','2022-12-15'),
+(116,'Priya',NULL,NULL,'DELHI',NULL,'priya@gmail.com','2025-01-01'),
+(117,'Suresh',50,112,'HYDERABAD',4500,'suresh@gmail.com','2024-09-30'),
+(118,'Rahul',40,112,'KOTA',6800,NULL,'2021-06-25');
+
+--3. SALARY GRADE TABLE
+CREATE TABLE SALARY_GRADE_CONSOLIDATED
+(
+ GRADE_ID INT PRIMARY KEY,
+ GRADE_NAME VARCHAR(30),
+ MIN_SALARY INT,
+ MAX_SALARY INT
+);
+
+INSERT INTO SALARY_GRADE_CONSOLIDATED VALUES
+(1,'JUNIOR',3000,4499),
+(2,'ASSOCIATE',4500,5499),
+(3,'SENIOR',5500,6499),
+(4,'LEAD',6500,7499),
+(5,'MANAGER',7500,9000);
+
+--4. PROJECT TABLE
+CREATE TABLE PROJECT_CONSOLIDATED
+(
+ PROJECT_ID INT PRIMARY KEY,
+ PROJECT_NAME VARCHAR(80),
+ DEPT_ID INT,
+ START_DATE DATE,
+ END_DATE DATE,
+ PROJECT_STATUS VARCHAR(20)
+);
+
+INSERT INTO PROJECT_CONSOLIDATED VALUES
+(201,'Cloud Migration',10,'2025-01-15','2025-12-31','ACTIVE'),
+(202,'HR Automation',20,'2025-03-01','2025-10-31','ACTIVE'),
+(203,'Finance Reporting',30,'2024-06-01','2025-03-31','COMPLETED'),
+(204,'Sales Dashboard',40,'2025-04-10','2025-11-30','ACTIVE'),
+(205,'Operations Optimization',50,'2025-02-01','2025-09-30','ACTIVE'),
+(206,'Marketing Campaign',60,'2025-05-01','2025-08-31','PLANNED');
+
+--5. SET OPERATOR TABLES
+CREATE TABLE EMPLOYEE_2024
+(
+ EMP_ID INT,
+ EMP_NAME VARCHAR(60),
+ EMP_CITY VARCHAR(30)
+);
+
+CREATE TABLE EMPLOYEE_2025
+(
+ EMP_ID INT,
+ EMP_NAME VARCHAR(60),
+ EMP_CITY VARCHAR(30)
+);
+
+INSERT INTO EMPLOYEE_2024 VALUES
+(101,'Amit','PUNE'),(102,'Riya','MUMBAI'),(103,'Rohan','PUNE'),
+(104,'Sneha','NAGPUR'),(105,'Raj','KOTA'),(106,'Seema','PUNE'),
+(109,'Sachin','PUNE'),(110,'Neha','MUMBAI');
+
+INSERT INTO EMPLOYEE_2025 VALUES
+(101,'Amit','PUNE'),(103,'Rohan','PUNE'),(104,'Sneha','NAGPUR'),
+(107,'Ravi','MUMBAI'),(108,'Pooja','NAGPUR'),(109,'Sachin','PUNE'),
+(114,'Sunita','HYDERABAD'),(116,'Priya','DELHI');
+
+ 
+--PART B – 50 CONSOLIDATED SQL BUSINESS SCENARIO QUESTIONS
+--Q1. Employee Master Report
+--Display EMP_ID, EMP_NAME, EMP_CITY and EMP_SALARY for all employees.
+--•	Sort by EMP_ID.
+select * from DEPARTMENT_CONSOLIDATED
+select * from EMPLOYEE_CONSOLIDATED;
+select * from SALARY_GRADE_CONSOLIDATED;
+select * from PROJECT_CONSOLIDATED;
+select * from EMPLOYEE_2024;
+select * from EMPLOYEE_2025;
+select EMP_ID, EMP_NAME, EMP_CITY, EMP_SALARY from EMPLOYEE_CONSOLIDATED
+order by EMP_ID
+
+
+--Q2. Distinct Employee Cities
+--Management wants all unique employee cities.
+--•	Use DISTINCT.
+select distinct(emp_city) from EMPLOYEE_CONSOLIDATED
+
+--Q3. Top Paid Employees
+--Display the TOP 5 highest-paid employees.
+--•	Exclude NULL salary.
+--•	Sort descending.
+select top 5 * from EMPLOYEE_CONSOLIDATED 
+where EMP_SALARY is not null
+order by EMP_SALARY  desc;
+
+select top 5 * from EMPLOYEE_CONSOLIDATED 
+where EMP_SALARY is not null
+order by EMP_SALARY 
+
+--Q4. Salary Range Analysis
+--Find employees whose salary is between 5000 and 7000.
+--•	Display name, city and salary.
+select emp_name,emp_city,emp_salary from EMPLOYEE_CONSOLIDATED 
+where emp_Salary between 5000 and 7000
+--Q5. Multi-City Search
+--Find employees working in PUNE, MUMBAI or NAGPUR.
+--•	Use IN.
+select * from EMPLOYEE_CONSOLIDATED
+where EMP_CITY in ('pune','mumbai','nagpur')
+
+--Q6. Email Data Quality
+--Find employees whose email address is missing.
+--•	Use IS NULL.
+select * from EMPLOYEE_CONSOLIDATED
+where emp_email is null;
+
+--Q7. Name Pattern Search
+--Find employees whose names start with R.
+--•	Use LIKE.
+select * from EMPLOYEE_CONSOLIDATED 
+where EMP_NAME like 'R%'
+
+--Q8. Combined Business Filter
+--Find employees from PUNE whose salary is greater than 5000.
+--•	Sort by salary descending.
+select * from EMPLOYEE_CONSOLIDATED
+where EMP_CITY = 'PUNE' and EMP_SALARY > 5000
+order by EMP_SALARY desc;
+
+--Q9. Outside Selected Cities
+--Find employees not located in PUNE or MUMBAI.
+--•	Use NOT IN.
+select * from EMPLOYEE_CONSOLIDATED
+where EMP_CITY not in ('PUNE','MUMBAI')
+
+--Q10. Aggregate Employee Summary
+--Display total employees, total salary, average, minimum and maximum salary.
+--•	Use aggregate functions.
+SELECT COUNT(*) [TOTAL EMP], SUM(EMP_SALARY) [TOTAL SALARY],AVG(EMP_SALARY) [AVG SALARY],
+MIN(EMP_SALARY) [MIN SALARY], MAX(EMP_SALARY) [MAX SALARY] FROM EMPLOYEE_CONSOLIDATED
+
+--Q11. Department Employee Count
+--Show employee count by DEPT_ID.
+--•	Use GROUP BY.
+SELECT DEPT_ID, COUNT(EMP_NAME) FROM EMPLOYEE_CONSOLIDATED
+GROUP BY DEPT_ID
+
+--Q12. Department Salary Summary
+--Calculate total and average salary by department.
+--•	Use GROUP BY.
+SELECT DEPT_ID,SUM(EMP_SALARY) [TOTAL SALARY],AVG(EMP_sALARY) [AVG SAL]
+FROM EMPLOYEE_CONSOLIDATED
+GROUP BY DEPT_ID
+--Q13. High Salary Departments
+--Find departments with average salary greater than 6000.
+--•	Use HAVING.
+SELECT DEPT_ID,AVG(EMP_sALARY) [avg sal] FROM EMPLOYEE_CONSOLIDATED
+GROUP BY DEPT_ID
+HAVING AVG(EMP_sALARY) > 6000
+--Q14. Duplicate Business Data Check
+--Identify duplicate EMP_NAME and EMP_CITY combinations.
+--•	Use GROUP BY, COUNT and HAVING.
+SELECT EMP_NAME,EMP_CITY,COUNT(*) FROM EMPLOYEE_CONSOLIDATED
+GROUP BY EMP_CITY,EMP_NAME
+HAVING COUNT( *) > 1
+-- I ADDED ONE RECORD TO SEE THE DUPLICATES
+INSERT INTO EMPLOYEE_CONSOLIDATED VALUES
+(119,'Rahul',40,112,'KOTA',6800,NULL,'2021-06-25')
+
+SELECT EMP_CITY , COUNT(*) FROM EMPLOYEE_CONSOLIDATED GROUP BY EMP_CITY
+--Q15. Above Company Average
+--Find employees earning more than overall average salary.
+--•	Use a subquery.
+SELECT * FROM EMPLOYEE_CONSOLIDATED
+WHERE EMP_SALARY > 
+(SELECT AVG(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED)
+ORDER BY EMP_sALARY
+--Q16. Highest Paid Employee
+--Find employee(s) earning maximum salary.
+--•	Use MAX in a subquery.
+SELECT * FROM EMPLOYEE_CONSOLIDATED 
+WHERE EMP_SALARY =
+(SELECT MAX(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED)
+
+--Q17. Second Highest Distinct Salary
+--Find the second-highest distinct salary.
+--•	Do not use Window Functions.
+SELECT DISTINCT MAX(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED
+WHERE EMP_SALARY <
+(SELECT MAX(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED)
+
+SELECT MAX(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED
+WHERE EMP_SALARY <
+(SELECT MAX(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED)
+
+SELECT MIN(EMP_SALARY) FROM 
+(SELECT DISTINCT TOP 2 EMP_SALARY FROM EMPLOYEE_CONSOLIDATED
+ORDER BY EMP_SALARY DESC) AS EMP
+--Q18. Above Department Average
+--Find employees earning more than their department average.
+--•	Use correlated subquery.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E1
+WHERE EMP_SALARY >
+(SELECT AVG(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED E2 WHERE E1.DEPT_ID = E2.DEPT_ID)
+--Q19. Top 3 Above-Average Employees
+--Find TOP 3 employees earning above company average.
+--•	Use TOP + subquery + ORDER BY.
+SELECT TOP 3 * FROM EMPLOYEE_CONSOLIDATED
+WHERE EMP_SALARY > 
+(SELECT AVG(EMP_SALARY) FROM EMPLOYEE_CONSOLIDATED)
+--Q20. Departments With More Than 3 Employees
+--Find departments having more than 3 employees.
+--•	Use GROUP BY and HAVING.
+
+SELECT DEPT_ID,COUNT(*) [EMP_COUNT] FROM EMPLOYEE_CONSOLIDATED GROUP BY DEPT_ID
+HAVING COUNT(*) > 3
+
+--Q21. Employee Department Directory
+--Show employees with matching department details.
+--•	Use INNER JOIN.
+SELECT * FROM DEPARTMENT_CONSOLIDATED
+SELECT * FROM EMPLOYEE_CONSOLIDATED E JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+--Q22. Complete Employee Department Report
+--Show every employee even without department.
+--•	Use LEFT JOIN.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E LEFT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+--Q23. Employees Without Department
+--Identify employees without matching department.
+--•	Use JOIN and IS NULL.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E LEFT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+WHERE D.DEPT_ID IS NULL
+
+--Q24. Departments Without Employees
+--Find departments with zero employees.
+--•	Use OUTER JOIN and IS NULL.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E RIGHT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+WHERE E.DEPT_ID IS NULL
+
+--Q25. Full Data Reconciliation
+--Show matched and unmatched records from Employee and Department.
+--•	Use FULL OUTER JOIN.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E FULL JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+--Q26. Department Salary Analytics
+--Show department name, employee count, total salary and average salary.
+--•	Use JOIN + GROUP BY.
+SELECT DEPT_NAME,COUNT(*) [EMP COUNT],SUM(EMP_SALARY) [TOTAL SAL],AVG(EMP_SALARY) [AVG SAL]
+FROM EMPLOYEE_CONSOLIDATED E RIGHT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+GROUP BY DEPT_NAME
+
+--Q27. High Value Departments
+--Find departments with average salary greater than 5500.
+--•	Use JOIN + HAVING.
+SELECT DEPT_ID,AVG(EMP_SALARY) [AVG_SAL] FROM EMPLOYEE_CONSOLIDATED
+GROUP BY DEPT_ID
+HAVING AVG(EMP_SALARY) > 5500
+--Q28. Employee Manager Directory
+--Display each employee with manager name.
+--•	Use SELF JOIN.
+SELECT E1.EMP_ID,E1.EMP_NAME, E1.MANAGER_ID,E2.EMP_NAME [MANAGER NAME]
+FROM EMPLOYEE_CONSOLIDATED E1, EMPLOYEE_CONSOLIDATED E2
+WHERE E1.MANAGER_ID = E2.EMP_ID
+--Q29. Manager Team Size
+--Display manager and number of direct reports.
+--•	Use SELF JOIN + COUNT + GROUP BY.
+SELECT  E1.MANAGER_ID [MANAGER NAME],COUNT(*) [NO OF REPORT]
+FROM EMPLOYEE_CONSOLIDATED E1, EMPLOYEE_CONSOLIDATED E2
+WHERE E1.MANAGER_ID = E2.EMP_ID
+GROUP BY E1.MANAGER_ID
+--Q30. Same Manager Colleagues
+--Find employee pairs reporting to same manager.
+--•	Avoid self-pairs and duplicate pairs.
+SELECT DISTINCT E1.MANAGER_ID [MANAGER NAME], COUNT(*) [EMP PAIR]
+FROM EMPLOYEE_CONSOLIDATED E1, EMPLOYEE_CONSOLIDATED E2
+WHERE E1.MANAGER_ID = E2.EMP_ID AND E1.EMP_ID != E2.EMP_ID
+GROUP BY E1.MANAGER_ID
+--Q31. Three-Table Employee Dashboard
+--Display EMP_NAME, DEPT_NAME, EMP_SALARY and GRADE_NAME.
+--•	Use equality and salary-range matching.
+SELECT EMP_NAME, DEPT_NAME, EMP_SALARY, GRADE_NAME FROM EMPLOYEE_CONSOLIDATED E JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID 
+JOIN SALARY_GRADE_CONSOLIDATED S
+ON E.EMP_SALARY BETWEEN S.MIN_SALARY AND S.MAX_SALARY
+--Q32. All Employee Classification
+--Show all employees with department and salary-grade details.
+--•	Keep employees without department.
+--•	Handle NULL salary.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E LEFT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID 
+LEFT JOIN SALARY_GRADE_CONSOLIDATED S 
+ON E.EMP_SALARY BETWEEN S.MIN_SALARY AND S.MAX_SALARY
+WHERE EMP_SALARY IS NOT NULL
+
+--Q33. Department Grade Distribution
+--Show DEPT_NAME, GRADE_NAME and TOTAL_EMPLOYEES.
+--•	Use all three tables and GROUP BY.
+SELECT DEPT_NAME,GRADE_NAME, COUNT(EMP_NAME) [TOTAL EMP]
+FROM EMPLOYEE_CONSOLIDATED E  LEFT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID 
+LEFT JOIN SALARY_GRADE_CONSOLIDATED S 
+ON E.EMP_SALARY BETWEEN S.MIN_SALARY AND S.MAX_SALARY
+GROUP BY DEPT_NAME,GRADE_NAME
+--Q34. High Value Workforce
+--Find IT, SALES or OPERATIONS employees in SENIOR, LEAD or MANAGER grades.
+--•	Use IN and three tables.
+SELECT *
+FROM EMPLOYEE_CONSOLIDATED E  LEFT JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID 
+LEFT JOIN SALARY_GRADE_CONSOLIDATED S 
+ON E.EMP_SALARY BETWEEN S.MIN_SALARY AND S.MAX_SALARY
+WHERE DEPT_NAME IN ('IT','SALES') OR GRADE_NAME IN ('SENIOR','LEAD','MANAGER')
+--Q35. Cross Join Planning Matrix
+--Generate every possible Employee × Department combination.
+--•	Use CROSS JOIN.
+--•	Use IN and three tables.
+SELECT *
+FROM EMPLOYEE_CONSOLIDATED E  CROSS JOIN DEPARTMENT_CONSOLIDATED D
+--Q36. Cross Join Combination Count
+--Calculate total Employee × Department combinations.
+--•	Use CROSS JOIN and COUNT(*).
+SELECT COUNT(*)
+FROM EMPLOYEE_CONSOLIDATED E  CROSS JOIN DEPARTMENT_CONSOLIDATED D
+--Q37. Salary Grade Mapping
+--Map employees with valid salary to correct grade.
+--•	Use NON-EQUI JOIN and BETWEEN.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E JOIN SALARY_GRADE_CONSOLIDATED S
+ON EMP_SALARY BETWEEN MIN_SALARY AND MAX_SALARY
+--Q38. Grade-wise Employee Count
+--Find employee count in each salary grade.
+--•	Use NON-EQUI JOIN + GROUP BY.
+SELECT GRADE_NAME, COUNT(EMP_NAME) FROM EMPLOYEE_CONSOLIDATED E JOIN SALARY_GRADE_CONSOLIDATED S
+ON EMP_SALARY BETWEEN MIN_SALARY AND MAX_SALARY
+GROUP BY GRADE_NAME
+--Q39. Equi Join Validation
+--Display employees and departments where DEPT_ID values are equal.
+--•	Use equality condition in JOIN.
+SELECT * FROM EMPLOYEE_CONSOLIDATED E JOIN DEPARTMENT_CONSOLIDATED D
+ON E.DEPT_ID = D.DEPT_ID
+
+--Q40. Project Department Dashboard
+--Display PROJECT_NAME, PROJECT_STATUS, DEPT_NAME, DEPT_LOCATION and START_DATE.
+--•	Join Project and Department.
+SELECT * FROM DEPARTMENT_JOIN
+SELECT * FROM EMPLOYEE_2024
+SELECT * FROM EMPLOYEE_2025
+SELECT * FROM PROJECT_CONSOLIDATED
+SELECT PROJECT_NAME, PROJECT_STATUS, DEPT_NAME, DEPT_LOCATION , START_DATE
+FROM DEPARTMENT_CONSOLIDATED D  JOIN PROJECT_CONSOLIDATED P
+ON D.DEPT_ID = P.DEPT_ID
+--Q41. UNION – Combined Employee List
+--Create one combined employee list from EMPLOYEE_2024 and EMPLOYEE_2025.
+--•	Use UNION.
+
+SELECT DISTINCT TOP 1  * FROM EMPLOYEE_CONSOLIDATED
+WHERE EMP_SALARY >
+(SELECT TOP  2 * FROM EMPLOYEE_CONSOLIDATED ORDER BY EMP_SALARY DESC)
+--Q42. UNION ALL – Historical List
+--Display all rows from both yearly tables including duplicates.
+--•	Use UNION ALL.
+SELECT * FROM EMPLOYEE_2024 
+UNION ALL 
+SELECT * FROM EMPLOYEE_2025
+--Q43. INTERSECT – Common Employees
+--Find employees existing in both yearly tables.
+--•	Use INTERSECT.
+SELECT * FROM EMPLOYEE_2024 
+INTERSECT
+SELECT * FROM EMPLOYEE_2025
+--Q44. EXCEPT – Missing in 2025
+--Find employees in 2024 but not in 2025.
+--•	Use EXCEPT.
+SELECT * FROM EMPLOYEE_2024 
+EXCEPT
+SELECT * FROM EMPLOYEE_2025
+--Q45. SET Operator City Challenge
+--Find all unique cities across both yearly tables.
+--•	Use UNION.
+SELECT * FROM EMPLOYEE_2024 
+UNION
+SELECT * FROM EMPLOYEE_2025
+--Q46. Current Date and Time Report
+--Display GETDATE(), SYSDATETIME() and CURRENT_TIMESTAMP.
+--•	Use meaningful aliases.
+select GETDATE() AS [CURR DATE],SYSDATETIME() AS [SYS DATE], CURRENT_TIMESTAMP [CURR]
+select GETDATE() -1
+select GETDATE()
+select GETDATE() +1
+select GETDATE() +3650
+--Q47. Employee Joining Date Parts
+--Display employee name, JOIN_DATE, joining year, month number, day number and month name.
+--•	Use YEAR, MONTH, DAY and DATENAME.
+SELECT * FROM EMPLOYEE_CONSOLIDATED
+SELECT EMP_NAME, JOIN_DATE,YEAR(JOIN_DATE) AS YEAR,MONTH(JOIN_DATE)AS MONTH,
+DAY(JOIN_dATE) DAY,DATENAME(MONTH,JOIN_DATE) MONTH_NAME FROM EMPLOYEE_CONSOLIDATED
+
+--Q48. Project Date Part Analysis
+--Display project, start date, year, month name, weekday name and quarter.
+--•	Use YEAR, DATENAME and DATEPART
+SELECT * FROM PROJECT_CONSOLIDATED
+SELECT PROJECT_NAME,START_DATE, YEAR(START_DATE) START_YEAR, MONTH(START_DATE) START_MONTH,
+DATENAME(MONTH,START_DATE) MONTH_NAME,DATEPART(MONTH,START_DATE), DATEPART(QUARTER,START_DATE) QUARTER,
+DATENAME(QUARTER,START_DATE),DATEPART(WEEKDAY,START_DATE),
+DATENAME(WEEKDAY,START_DATE) FROM PROJECT_CONSOLIDATED
+--Q49. Employee Service Duration
+--Calculate number of days each employee has worked from JOIN_DATE until today.
+--•	Use DATEDIFF.
+SELECT EMP_NAME,JOIN_DATE,DATEDIFF(DD,JOIN_DATE,GETDATE()) EXP FROM EMPLOYEE_CONSOLIDATED
+
+--Q50. Project Timeline Challenge
+--For each project show duration in days, month-end of START_DATE and date 30 days after 
+--START_DATE.
+--•	Use DATEDIFF, EOMONTH and DATEADD.
+SELECT PROJECT_NAME,DATEDIFF(DD,START_DATE,END_DATE) DURATION,EOMONTH(START_DATE) [END OF START MONTH],
+DATEADD(DD,30,START_DATE) [DATE AFTER 30 DAY OF START DATE]
+FROM PROJECT_CONSOLIDATED
+ 
+--PART C – TOPIC COVERAGE MATRIX
+--•	Q1–Q10: Basic SQL, filtering, DISTINCT, TOP, NULL, LIKE and aggregates
+--•	Q11–Q14 and Q20: GROUP BY and HAVING
+--•	Q15–Q19: Subqueries and correlated subqueries
+--•	Q21–Q27: INNER / LEFT / FULL OUTER JOIN business scenarios
+--•	Q28–Q30: SELF JOIN
+--•	Q31–Q34: Three-table joins
+--•	Q35–Q36: CROSS JOIN
+--•	Q37–Q38: NON-EQUI JOIN
+--•	Q39: EQUI JOIN
+--•	Q40: Project and Department JOIN
+--•	Q41–Q45: UNION / UNION ALL / INTERSECT / EXCEPT
+--•	Q46–Q50: Date and Time functions

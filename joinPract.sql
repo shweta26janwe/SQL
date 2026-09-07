@@ -109,3 +109,42 @@ select * from C left join  D on C.id = D.id
 select * from C right join D  on C .id = D.id
 select * from C full join  D on C.id = D.id
 
+
+create table library (
+l_id int,
+l_name varchar(40)
+)
+now if we want to join the multiple table like student,deaprtment and library
+we have the same col d_id in student and dept but we dont have common col in dept and library 
+so now we insert l_id in dept
+
+alter table department add l_id int;
+select * from department;
+
+insert into department values
+(1,2,3)
+
+insert into department values
+(4,'it',1)
+
+insert into library values
+(1,'chemistry'),
+(2,'physics'),
+(3,'Biology')
+select * from student;
+select * from department;
+select * from library;
+
+select * from student s join department d on
+s.dept_id = d.d_id
+
+
+select * from  department d join library l on
+l.l_id = d.l_id
+
+select * from student s join department d on
+s.dept_id = d.d_id join library l on
+d.l_id = l.l_id
+
+update department set l_id = 3 where d_id = 2
+
