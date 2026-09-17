@@ -424,3 +424,74 @@ where not exists (select * from TARGET_CUSTOMER_SET10 T where C.CUSTOMER_ID = T.
 select * from TARGET_CUSTOMER_SET10
 --Q45. Build one integrated query using the supplied tables that combines conditional classification, 
 --NULL handling, a row-dependent comparison, an existence check and a set-based salary comparison.
+
+
+
+SELECT c.CUSTOMER_NAME, City,CUSTOMER_ID
+FROM CUSTOMER_SET10 c
+WHERE customer_id in  (
+    SELECT o.CUSTOMER_ID
+    FROM ORDER_SET10 o
+    WHERE o.CUSTOMER_ID = c.CUSTOMER_ID
+);
+
+
+
+select ISNULL(NULL,'NO Value')--No value
+
+select ISNULL(1234,'NO Value') --O/P -1234
+
+select ISNULL('','NO Value') --O/P -blank Space
+
+select ISNULL('xtfyguhkg','NO Value') --O/P-xtfyguhkg
+
+
+--4. Create the Training Data in SQL
+CREATE TABLE employees (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    dept_id INT,
+    salary INT
+);
+
+INSERT INTO employees VALUES
+(101, 'Amit', 10, 50000),
+(102, 'Priya', 10, 70000),
+(103, 'Rahul', 20, 60000),
+(104, 'Sneha', 20, 80000),
+(105, 'Neha', 30, 55000),
+(106, 'Karan', 30, 90000);
+
+CREATE TABLE departments (
+    dept_id INT,
+    dept_name VARCHAR(50)
+);
+
+INSERT INTO departments VALUES
+(10, 'IT'),
+(20, 'HR'),
+(30, 'Finance');
+
+CREATE TABLE customers (
+    customer_id INT,
+    customer_name VARCHAR(50)
+);
+
+INSERT INTO customers VALUES
+(1, 'Amit'),
+(2, 'Priya'),
+(3, 'Rahul'),
+(4, 'Sneha');
+
+CREATE TABLE orders (
+    order_id INT,
+    customer_id INT,
+    amount INT
+);
+
+INSERT INTO orders VALUES
+(501, 1, 5000),
+(502, 1, 3000),
+(503, 3, 7000);
+
+
