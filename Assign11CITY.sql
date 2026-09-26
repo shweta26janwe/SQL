@@ -290,7 +290,8 @@ select *, coalesce(Email,Phone,ALT_EMAIL,ALT_PHONE) contact from CUSTOMER_SET11 
 where not exists (select * from ORDER_SET11 O where C.CUSTOMER_ID = O.CUSTOMER_ID)
 --Q66. Identify products with no sales activity and display stock information.
 select * from PRODUCT_SET11 P
-where 
+select * from CUSTOMER_SET11
+select * from TARGET_CUSTOMER_SET11
 select * from EMPLOYEE_SET11
 select * from SALARY_GRADE_SET11
 select * from EMPLOYEE_ACTIVITY_SET11
@@ -366,9 +367,10 @@ from CUSTOMER_SET11 C join ORDER_SET11 O on C.CUSTOMER_ID = O.CUSTOMER_ID
 --Q63. Number each customer’s orders chronologically.
 select *, row_number() over(partition by customer_id order by order_id) Number from ORDER_SET11 
 --Q64. Display each transaction with the immediately previous transaction amount for the same account.
-select * from TRANSACTION_SET11
+select *,lag(TRANSACTION_AMOUNT) over(partition by account_id order by transaction_date) Prev_Tran_Amt from TRANSACTION_SET11
 --Q65. Display each transaction with the immediately next transaction amount for the same account.
-select * , lead(TRANSACTION_AMOUNT) over(order by transaction_amount) Next_tran from TRANSACTION_SET11
+select * , lead(TRANSACTION_AMOUNT) over(partition by account_id  order by transaction_amount) Next_tran 
+from TRANSACTION_SET11
 
 --Q66. Calculate the change between the current and previous transaction amounts.
 with PreviousAmou as 
@@ -404,21 +406,51 @@ from CUSTOMER_SET11 C join ORDER_SET11 O on C.CUSTOMER_ID = O.CUSTOMER_ID
 begin tran
 with DeleteDuplicate as(
 select * from (
-select *,row_number() over(partition by customer_id order by customer_id) ranks from CUSTOMER_SET11) as a
+select *,row_number() over(partition by customer_id,customer_name,city,customer_type,email,phone,alt_email,alt_phone
+order by customer_id) ranks from CUSTOMER_SET11) as a
 where ranks=2)
-delete * from DeleteDuplicate 
+delete  from DeleteDuplicate 
+rollback
+select * from CUSTOMER_SET11
+
 --Q72. Create an intermediate customer-total result and identify customers above the average total.
-select * from
-(select *, count(*) over(order by customer_id) count from CUSTOMER_SET11)
-where 
+select * from (select c.CUSTOMER_ID,c.customer_name,sum(TRANSACTION_AMOUNT) over(partition by C.customer_id) Customer_Total 
+from CUSTOMER_SET11 C join  ACCOUNT_SET11 A 
+on C.CUSTOMER_ID = A.CUSTOMER_ID join
+TRANSACTION_SET11 T on A.ACCOUNT_ID = T.ACCOUNT_ID) as a
+where Customer_Total > (select avg(customer_Total) from a)  --wrong
+
+with JoinedT as(
+select c.CUSTOMER_ID,c.customer_name,sum(TRANSACTION_AMOUNT) over(partition by C.customer_id) Customer_Total 
+from CUSTOMER_SET11 C join  ACCOUNT_SET11 A 
+on C.CUSTOMER_ID = A.CUSTOMER_ID join
+TRANSACTION_SET11 T on A.ACCOUNT_ID = T.ACCOUNT_ID)
+select * from JoinedT where Customer_Total > (select avg(Customer_Total) from JoinedT)
+
+with JoinedT as(
+select c.CUSTOMER_ID,c.customer_name,sum(TRANSACTION_AMOUNT)  Customer_Total 
+from CUSTOMER_SET11 C join  ACCOUNT_SET11 A 
+on C.CUSTOMER_ID = A.CUSTOMER_ID join
+TRANSACTION_SET11 T on A.ACCOUNT_ID = T.ACCOUNT_ID
+group by c.CUSTOMER_ID,c.CUSTOMER_NAME)
+select * from JoinedT where Customer_Total > (select avg(Customer_Total) from JoinedT)
+
+
 
 --Q73. Create an intermediate department-average result and identify employees above their department average.
-select * from (
-select *,avg(salary) over(partition by dept_id order by salary desc) Average from EMPLOYEE_SET11 e1) as a
-where salary >= (select avg(salary) from EMPLOYEE_SET11 e2 where a.dept_id = e2.dept_id)
+
+select *,avg(salary) over(partition by dept_id order by salary desc) Average from EMPLOYEE_SET11 e1
+where salary >= (select avg(salary) from EMPLOYEE_SET11 e2 where e1.dept_id = e2.dept_id)
+--or
+select *  from EMPLOYEE_SET11 e1
+where salary >= (select avg(salary) from EMPLOYEE_SET11 e2 where e1.dept_id = e2.dept_id)
+
+
+
+
 --Q74. Prepare departmental employee rankings and return the top two employees per department.
 select * from (
-select *,row_number() over(partition by dept_id order by salary) ranks from EMPLOYEE_SET11) as a
+select *,row_number() over(partition by dept_id order by salary desc) ranks from EMPLOYEE_SET11) as a
 where ranks <= 2
 --Q75. Number customer orders and use the sequence to identify each customer’s first and most recent order.
 select * from (select *,ROW_NUMBER() over(partition by c.customer_id order by order_date) number
@@ -441,7 +473,7 @@ select * from PRODUCT_SET11;
 
 --Q78. Prepare monthly customer order totals and compare each month with the customer’s previous month.
 with PreviosT as(
-select *,row_number()  over(partition by customer_id order by order_Date) ranks ,
+select *,
 lag(ORDER_AMOUNT) over(partition by customer_id order by order_Date) previous_amt from ORDER_SET11) 
 select *,Comparision = order_amount - previous_amt  from PreviosT;
 
@@ -459,9 +491,9 @@ select *,comparision = Total - previousMonth from previousMonth
 --Q79. Prepare employee activity history and identify the latest activity record for every employee.
 select *,max(activity_date) over(partition by e2.emp_id order by e2.emp_id ) latest_activity_record
 from EMPLOYEE_SET11 e1 join EMPLOYEE_ACTIVITY_SET11 e2 on e1.EMP_ID = e2.EMP_ID
-select * from EMPLOYEE_ACTIVITY_SET11
 
 select * from EMPLOYEE_ACTIVITY_SET11
+
 
 --Q80. Create a multi-step analytical result showing customer totals, city rank, previous customer total in the 
 --city and the difference from that previous customer.
@@ -469,3 +501,42 @@ select * from EMPLOYEE_ACTIVITY_SET11
 select 60*60
 select 3600/60
 select 60/60
+
+
+
+
+CREATE TABLE Sales_Records (
+    SalesID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    Region VARCHAR(50),
+    SalesAmount DECIMAL(10,2)
+);
+
+INSERT INTO Sales_Records (SalesID, CustomerName, Region, SalesAmount)
+VALUES
+(1, 'Ravi Kumar', 'Mumbai', 45000),
+(2, 'Anjali Sharma', 'Delhi', 58000),
+(3, 'Suresh Mehta', 'Mumbai', 20000),
+(4, 'Neha Joshi', 'Bangalore', 62000),
+(5, 'Vikram Desai', 'Hyderabad', 47000),
+(6, 'Pooja Iyer', 'Chennai', 53000),
+(7, 'Amit Rathi', 'Delhi', 48000),
+(8, 'Kiran Patel', 'Mumbai', 55000),
+(9, 'Divya Agarwal', 'Pune', 61000),
+(10, 'Rahul Verma', 'Kolkata', 32000),
+(11, 'Vinay Kumar', 'Bangalore', 55000);
+
+select * from Sales_Records
+
+--Write a SQL query to perform the following:
+--1.Calculate the total sales made by each customer.
+select CustomerName,sum(SalesAmount)  Total_Sales from Sales_Records
+group by CustomerName
+select *, sum(SalesAmount) over(partition by Region order by salesid) from Sales_Records
+select *, sum(SalesAmount) over( order by salesid) from Sales_Records
+select *, sum(SalesAmount) over(partition by Region ) from Sales_Records
+
+
+select *, Rank() over( order by salesid) from Sales_Records
+select *, Rank() over(partition by region order by salesid) from Sales_Records
+--select *, Rank() over( partition by salesid) from Sales_Records
