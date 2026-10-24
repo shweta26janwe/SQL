@@ -37,10 +37,7 @@ INSERT INTO EMPLOYEE_DETAIL VALUES
 (23, 'Ramesh', 'KOTA', 5800, NULL, 'ramesh@gmail.com'),
 (24, 'Sunita', 'DELHI', 4200, NULL, NULL);
 
-/*
-Q1. IS NULL – Salary Investigation
-Display employees whose EMP_SAL is NULL. Display EMP_ID, EMP_NAME, EMP_CITY and EMP_SAL.*/
-SELECT EMP_ID, EMP_NAME, EMP_CITY, EMP_SAL FROM EMPLOYEE_DETAIL WHERE EMP_SAL IS NULL
+
 
 /*
 Q2. IS NOT NULL – Salary Validation
