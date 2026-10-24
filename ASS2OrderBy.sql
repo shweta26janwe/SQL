@@ -38,8 +38,10 @@ INSERT INTO EMPLOYEE_DETAIL VALUES
 (24, 'Sunita', 'DELHI', 4200, NULL, NULL);
 
 
-
-
+/*
+Q2. IS NOT NULL – Salary Validation
+Display employees whose salary is available (not NULL) and whose salary is greater than 4000. Display EMP_ID, EMP_NAME, EMP_SAL and EMP_EMAIL.*/
+SELECT  EMP_ID, EMP_NAME, EMP_SAL, EMP_EMAIL  FROM EMPLOYEE_DETAIL WHERE EMP_SAL IS NOT NULL AND EMP_SAL > 4000;
 
 /*Q3. NULL + OR Challenge
 Display employees who have either a NULL salary OR a NULL email address. Display EMP_ID, EMP_NAME, EMP_CITY, EMP_SAL and EMP_EMAIL.*/
