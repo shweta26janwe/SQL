@@ -91,7 +91,7 @@ Display employees who are from PUNE, KOTA or NAGPUR, have salary between 3500 an
 Exclude employee IDs 4 and 12. Sort by salary descending.*/
 SELECT * FROM EMPLOYEE_DETAIL WHERE EMP_CITY IN ('PUNE','KOTA','NAGPUR') AND EMP_ID NOT IN ('4','12') AND EMP_SAL BETWEEN 3500 AND 6500  AND EMP_DOJ IS NOT NULL ORDER BY EMP_SAL DESC;
 
-/*Q14. 
+/*Q14. Business Requirement – Bonus List
 Identify employees eligible for a bonus: salary is NOT NULL; salary is between 4000 and 7000; city is PUNE, KOTA or MUMBAI; email is NOT NULL.
 Calculate BONUS = EMP_SAL * 15 / 100 and FINAL_SALARY = EMP_SAL + BONUS. Sort by FINAL_SALARY descending.*/
 SELECT *,BONUS =EMP_SAL * 15/100,FINAL_SALARY = EMP_SAL + EMP_SAL * 15/100  FROM EMPLOYEE_DETAIL WHERE EMP_SAL IS NOT NULL AND EMP_SAL BETWEEN 4000 AND 7000 AND EMP_CITY IN ('PUNE','KOTA','MUMBAI') AND EMP_EMAIL IS NOT NULL
