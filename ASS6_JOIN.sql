@@ -8,6 +8,12 @@ between them.
 Its possible to store all data in one table but created more confusion we were not storing efficient record in hat 
 manner 
 
+ --Q2. INNER JOIN vs LEFT JOIN
+--Explain the difference between INNER JOIN and LEFT JOIN with respect to matched and unmatched records.
+inner join extract only the matching records but left join extract all left table record and matched right 
+side as well if it not match with left then it replace with null.
+
+ 
 --Q3. LEFT JOIN vs RIGHT JOIN
 --Explain the difference between LEFT JOIN and RIGHT JOIN. Can changing table order produce the same 
 --business result?
