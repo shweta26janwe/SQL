@@ -244,20 +244,3 @@ FROM EMPLOYEE_JOIN EJ RIGHT JOIN DEPARTMENT_JOIN DJ
 ON EJ.DEPT_ID = DJ.DEPT_ID AND EMP_SALARY BETWEEN 4500 AND 7000
 GROUP BY DEPT_NAME
 HAVING COUNT(EMP_NAME) >= 2 OR COUNT(EMP_NAME) = 0
---PART D – INTERVIEW LEARNING FOCUS
---•	Choose JOIN based on business requirements, not memorized syntax.
---•	Understand which table must remain fully visible.
---•	Use INNER JOIN for matched records only.
---•	Use OUTER JOIN when missing relationships matter.
---•	Use IS NULL to identify unmatched records.
---•	Be able to explain your JOIN selection in business language.
---•	Combine JOINs with WHERE, TOP, ORDER BY, GROUP BY and HAVING.
---Submission Checklist
---•	☐ 5 theoretical questions answered.
---•	☐ 15 practical business scenarios completed.
---•	☐ Both tables created and records inserted.
---•	☐ INNER, LEFT, RIGHT and FULL OUTER JOIN practiced.
---•	☐ Unmatched records identified.
---•	☐ Aggregate JOIN questions completed.
---•	☐ Final dashboard challenge completed.
---Business Requirement → Identify Matching Need → Choose JOIN → Filter → Aggregate → Present Result
