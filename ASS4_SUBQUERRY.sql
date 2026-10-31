@@ -4,7 +4,7 @@ select * from EMPD;
 
 select distinct * from EMPD;
 
-select distinct EMP_SAL from EMPD;
+
 
 select *,distinct EMP_SAL from EMPD; --this is invalid
 
