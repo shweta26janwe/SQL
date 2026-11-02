@@ -133,7 +133,7 @@ insert into employee values (2,'Om','Delhi',GETDATE()-500,6700),
  --Column
  select Column_Name as C1 from table_name;
 
- select Column_Name C1 from table_name;
+ 
 
  select C1=Column_Name from table_name;
 
