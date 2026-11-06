@@ -49,15 +49,13 @@ select * from student S left outer join department D on S.dept_id = D.d_id
 
 --2.b. right outer join/right
 --all right record and matched left record and which are not matched are replace with null
-syntax :
-select * from table1_name t1 right outer join/ right join table2_name t2 on t1.common_clumn = t2.common_column;
+
 
 select * from student S right outer join department D on S.dept_id = D.d_id 
 
 --2.c. full outer join/full join
 --all right record and  left record and which are not matched are replace with null
-syntax :
-select * from table1_name t1 full outer join / full join  table2_name t2 on t1.common_clumn = t2.common_column;
+
 
 select * from student S full outer join department D on S.dept_id = D.d_id 
 
