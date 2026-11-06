@@ -274,8 +274,7 @@ select * from department_join_adv
 select EMP_NAME,DEPT_LOCATION from EMPLOYEE_JOIN_ADV e1 cross join DEPARTMENT_JOIN_ADV d1
 where e1.DEPT_ID = d1.DEPT_ID
 
-select EMP_NAME,DEPT_LOCATION from EMPLOYEE_JOIN_ADV e1 cross join DEPARTMENT_JOIN_ADV d1
-where e1.DEPT_ID != d1.DEPT_ID
+
 --Q33. CROSS JOIN – Count Combinations
 --Calculate total Employee × Department combinations.
 --•	Use CROSS JOIN and COUNT(*).
