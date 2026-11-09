@@ -94,9 +94,6 @@ INSERT INTO EMPLOYEE_JOIN VALUES
 SELECT * FROM EMPLOYEE_JOIN;
 SELECT * FROM DEPARTMENT_JOIN;
 
---•	MARKETING has no employees.
---•	Neha and Meena have no department assignment.
---•	All other assigned DEPT_ID values match the department master.
  
 --PART C – 15 BUSINESS SCENARIO SQL QUESTIONS
 --Q6. Employee Department Directory
