@@ -1,7 +1,7 @@
 --PART B – DATABASE SETUP (3 TABLES)
 --Business Scenario
 --A company maintains employee information, department master data and salary grade information. Employees may report to another employee as their manager. Salary grades are assigned using salary ranges, making the dataset suitable for two-table joins, three-table joins, SELF JOIN and NON-EQUI JOIN practice.
---Table 1 – EMPLOYEE
+
 CREATE TABLE EMPLOYEE_JOIN_ADV
 (
  EMP_ID INT PRIMARY KEY,
@@ -12,14 +12,14 @@ CREATE TABLE EMPLOYEE_JOIN_ADV
  EMP_SALARY INT,
  EMP_EMAIL VARCHAR(100)
 );
---Table 2 – DEPARTMENT
+
 CREATE TABLE DEPARTMENT_JOIN_ADV
 (
  DEPT_ID INT PRIMARY KEY,
  DEPT_NAME VARCHAR(50) NOT NULL,
  DEPT_LOCATION VARCHAR(30)
 );
---Table 3 – SALARY_GRADE
+
 CREATE TABLE SALARY_GRADE
 (
  GRADE_ID INT PRIMARY KEY,
