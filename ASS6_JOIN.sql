@@ -95,7 +95,6 @@ SELECT * FROM EMPLOYEE_JOIN;
 SELECT * FROM DEPARTMENT_JOIN;
 
  
---PART C – 15 BUSINESS SCENARIO SQL QUESTIONS
 --Q6. Employee Department Directory
 --HR needs only employees assigned to a valid department.
 --•	Display EMP_ID, EMP_NAME, DEPT_NAME and DEPT_LOCATION.
