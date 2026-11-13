@@ -61,7 +61,6 @@ select distinct emp_city  from empd order by emp_city
 --Q2. DISTINCT – Department/City Footprint
 --Display unique EMP_DEPT and EMP_CITY combinations.
 --•	Use DISTINCT.
---•	Sort by department, then city.
 SELECT DISTINCT EMP_DEPT, EMP_CITY FROM EMPD ORDER BY EMP_DEPT,EMP_CITY;
 
 --Q3. TOP – Compensation Review
@@ -108,7 +107,6 @@ SELECT AVG(EMP_SAL) FROM EMPD ) ORDER BY EMP_SAL DESC;
 --Find every employee earning the maximum salary.
 --•	Use MAX() in a subquery.
 --•	Do not assume only one employee can tie.
---•	Sort by name.
 SELECT * FROM EMPD 
 WHERE EMP_SAL = 
 (SELECT MAX(EMP_SAL) FROM EMPD) ORDER BY EMP_NAME;
