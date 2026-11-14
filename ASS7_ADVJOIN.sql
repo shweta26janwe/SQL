@@ -1,4 +1,4 @@
---PART B – DATABASE SETUP (3 TABLES)
+
 --Business Scenario
 --A company maintains employee information, department master data and salary grade information. Employees may report to another employee as their manager. Salary grades are assigned using salary ranges, making the dataset suitable for two-table joins, three-table joins, SELF JOIN and NON-EQUI JOIN practice.
 
