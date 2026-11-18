@@ -1,7 +1,6 @@
 use company;
-select * from emp;
 
---Display all employees.
+
 select * from emp;
 
 --Display only employee name and salary.
