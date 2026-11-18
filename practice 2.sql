@@ -7,7 +7,7 @@ select * from emp;
 --Display only employee name and salary.
 select Emp_name,Emp_sal from emp
 --Display unique cities.
-select distinct city from emp 
+
 insert into emp values (11,'Sanket','pune',2500,'sales')
 select distinct city from emp 
 --Display unique combinations of city and department.
