@@ -124,9 +124,7 @@ EMONTH() is used to get that last date of that particualar date month,
 
 --Q3. CONVERT Style Codes
 --Explain why style codes are useful with CONVERT() when producing standard date strings such as YYYY-MM-DD.
---Q4. Date Filtering
---Why should a tester understand DATE/DATETIME/DATETIME2 before filtering transaction data? Explain the risk of ignoring the time portion.
---Q5. Date Functions with JOINs
+
 --Explain how Customer, Account and Transaction tables can be joined and then analyzed using EOMONTH(), DATEDIFF(), DATEADD(), YEAR() and MONTH().
  
 --PART C – 30 SQL BUSINESS SCENARIO QUESTIONS

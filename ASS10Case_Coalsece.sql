@@ -314,8 +314,7 @@ ON L.CUSTOMER_ID = C.CUSTOMER_ID
 GROUP BY C.CUSTOMER_NAME,L.LOAN_ID
 HAVING SUM(T.TRANSACTION_AMOUNT) < 200000 AND SUM(L.LOAN_AMOUNT) > 1000000
 
-select * from BANK_LOAN
-select * from BANK_TRANSACTION
+
 select * from BANK_CUSTOMER
 select C.CUSTOMER_ID,C.CUSTOMER_NAME,A.ACCOUNT_ID,T.TRANSACTION_ID,T.TRANSACTION_AMOUNT,L.LOAN_ID,L.CUSTOMER_ID,L.LOAN_AMOUNT
 from BANK_CUSTOMER C JOIN BANK_ACCOUNT A
@@ -436,12 +435,4 @@ ON T.ACCOUNT_ID = A.ACCOUNT_ID JOIN BANK_LOAN L
 ON L.CUSTOMER_ID = C.CUSTOMER_ID
 GROUP BY C.CUSTOMER_NAME,C.CITY,A.ACCOUNT_TYPE,L.LOAN_STATUS,
 DATEADD(MONTH,L.TENURE_MONTHS,L.LOAN_START_DATE)
---Interview Preparation Checklist
---•	Write and execute every query in SQL Server / SSMS.
---•	Validate the grain of each table before joining and aggregating.
---•	For banking reporting, include only successful transactions when the requirement specifies successful activity.
---•	Use EOMONTH for month-end reporting and DATEADD/DATEDIFF for date calculations.
---•	Use FORMAT for presentation formatting and CAST/CONVERT for datatype conversion.
---•	Use string functions for customer/contact/reference-data cleansing and reporting scenarios.
---•	Check for duplicate rows after multi-table joins.
---•	Use clear aliases and business-friendly output column names.
+

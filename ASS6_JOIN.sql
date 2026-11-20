@@ -7,11 +7,13 @@ joins is used to extract the data when we need to extratct data from both table 
 between them.
 Its possible to store all data in one table but created more confusion we were not storing efficient record in hat 
 manner 
---Q2. INNER JOIN vs LEFT JOIN
+
+ --Q2. INNER JOIN vs LEFT JOIN
 --Explain the difference between INNER JOIN and LEFT JOIN with respect to matched and unmatched records.
 inner join extract only the matching records but left join extract all left table record and matched right 
 side as well if it not match with left then it replace with null.
 
+ 
 --Q3. LEFT JOIN vs RIGHT JOIN
 --Explain the difference between LEFT JOIN and RIGHT JOIN. Can changing table order produce the same 
 --business result?
@@ -92,11 +94,7 @@ INSERT INTO EMPLOYEE_JOIN VALUES
 SELECT * FROM EMPLOYEE_JOIN;
 SELECT * FROM DEPARTMENT_JOIN;
 
---•	MARKETING has no employees.
---•	Neha and Meena have no department assignment.
---•	All other assigned DEPT_ID values match the department master.
  
---PART C – 15 BUSINESS SCENARIO SQL QUESTIONS
 --Q6. Employee Department Directory
 --HR needs only employees assigned to a valid department.
 --•	Display EMP_ID, EMP_NAME, DEPT_NAME and DEPT_LOCATION.
@@ -230,32 +228,17 @@ HAVING AVG(EMP_SALARY) > 5500
 --•	Write one line explaining why your JOIN is appropriate.
 SELECT * FROM EMPLOYEE_JOIN
 SELECT * FROM DEPARTMENT_JOIN
+
+ 
 --SELECT DEPT_NAME,COUNT(EMP_ID) TOTAL_EMPLOYEES, SUM(EMP_SALARY) TOTAL_SALARY, AVG(EMP_SALARY) AVG_SALARY
 --FROM EMPLOYEE_JOIN EJ RIGHT JOIN DEPARTMENT_JOIN DJ 
 --ON EJ.DEPT_ID = DJ.DEPT_ID
 --WHERE EMP_SALARY BETWEEN 4500 AND 7000
 --GROUP BY DEPT_NAME
 --HAVING COUNT(EMP_NAME) >= 2 OR COUNT(EMP_NAME) = 0
- 
+SELECT * FROM DEPARTMENT_JOIN
 SELECT DEPT_NAME,COUNT(EMP_ID) TOTAL_EMPLOYEES, SUM(EMP_SALARY) TOTAL_SALARY, AVG(EMP_SALARY) AVG_SALARY
 FROM EMPLOYEE_JOIN EJ RIGHT JOIN DEPARTMENT_JOIN DJ 
 ON EJ.DEPT_ID = DJ.DEPT_ID AND EMP_SALARY BETWEEN 4500 AND 7000
 GROUP BY DEPT_NAME
 HAVING COUNT(EMP_NAME) >= 2 OR COUNT(EMP_NAME) = 0
---PART D – INTERVIEW LEARNING FOCUS
---•	Choose JOIN based on business requirements, not memorized syntax.
---•	Understand which table must remain fully visible.
---•	Use INNER JOIN for matched records only.
---•	Use OUTER JOIN when missing relationships matter.
---•	Use IS NULL to identify unmatched records.
---•	Be able to explain your JOIN selection in business language.
---•	Combine JOINs with WHERE, TOP, ORDER BY, GROUP BY and HAVING.
---Submission Checklist
---•	☐ 5 theoretical questions answered.
---•	☐ 15 practical business scenarios completed.
---•	☐ Both tables created and records inserted.
---•	☐ INNER, LEFT, RIGHT and FULL OUTER JOIN practiced.
---•	☐ Unmatched records identified.
---•	☐ Aggregate JOIN questions completed.
---•	☐ Final dashboard challenge completed.
---Business Requirement → Identify Matching Need → Choose JOIN → Filter → Aggregate → Present Result
