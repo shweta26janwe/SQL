@@ -1,13 +1,3 @@
--- 1. LEARNING OBJECTIVES
---•	Understand CASE for conditional classification and derived values.
---•	Understand COALESCE for selecting the first available non-NULL value.
---•	Differentiate simple CASE and searched CASE.
---•	Understand correlated and non-correlated subqueries.
---•	Use EXISTS and NOT EXISTS for presence and absence checks.
---•	Understand ANY and ALL when comparing one value with a set returned by a subquery.
---•	Compare JOIN, EXISTS, NOT EXISTS and correlated subqueries based on the requirement.
---•	Combine today's concepts with all previously covered SQL topics.
---2. THEORY NOTES – TODAY'S TOPICS
 --2.1 CASE Expression
 --CASE is a conditional expression that returns a value based on one or more conditions. It is useful for deriving categories, statuses, labels and business classifications.
 --Searched CASE:
@@ -51,36 +41,9 @@
 --•	EXISTS and NOT EXISTS are useful for reconciliation and parent-child validation.
 --•	Handle NULL values deliberately when using conditional and comparison logic.
 --•	Validate table grain and duplicate rows when multiple tables are involved.
---3. TOPICS COVERED TILL DATE
---•	SELECT, aliases and calculated columns
---•	Comparison operators (=, >, <, >=, <=, <>, !=)
---•	AND, OR, NOT
---•	IN, NOT IN, BETWEEN, NOT BETWEEN
---•	Arithmetic operators (+, -, *, /, %)
---•	DISTINCT and TOP
---•	LIKE, IS NULL, IS NOT NULL
---•	ORDER BY
---•	Aggregate functions
---•	GROUP BY and HAVING
---•	Subqueries – non-correlated and filtering subqueries
---•	INNER, LEFT, RIGHT and FULL OUTER JOIN
---•	SELF JOIN, CROSS JOIN, EQUI JOIN and NON-EQUI JOIN
---•	UNION, UNION ALL, INTERSECT and EXCEPT
---•	GETDATE, SYSDATETIME, CURRENT_TIMESTAMP
---•	YEAR, MONTH, DAY, DATENAME, DATEPART
---•	DATEADD, DATEDIFF, EOMONTH
---•	FORMAT, CAST and CONVERT
---•	LEN, DATALENGTH, LEFT, RIGHT, SUBSTRING
---•	CHARINDEX, PATINDEX, REPLACE, STUFF, REPLICATE, TRANSLATE, REVERSE
---•	LTRIM, RTRIM, TRIM, UPPER, LOWER, ASCII, CHAR, UNICODE, NCHAR
---•	STRING_SPLIT, STRING_AGG, CONCAT, CONCAT_WS
---•	ROUND, ABS, CEILING, FLOOR, SQRT, POWER
---•	IIF, CHOOSE, ISNULL, COALESCE, CASE
---•	Correlated subqueries, EXISTS, NOT EXISTS, ANY and ALL
 
---DATASET SETUP – SQL SERVER / SSMS
---Run this script before attempting the assignment. The records intentionally include NULLs, missing relationships, department-level salary differences, customers without orders, products without orders, and comparison values for ANY/ALL.
---DEPARTMENT_SET10
+
+
 CREATE TABLE DEPARTMENT_SET10 (
     DEPT_ID INT PRIMARY KEY,
     DEPT_NAME VARCHAR(50)
