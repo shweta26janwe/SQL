@@ -82,8 +82,6 @@ select * from B
 so we see this now
 
 select * from A join B on A.id = B.id
---it gives 9 record . why 9 ? because in join they give the result of cross product + condition mean for first 1 of A they with the all
---3 record of B , for second 1 of they cross with all 1 of B and so on therefore, in A their are 3 row and in B their 3 row so record = 3*3 =9
 
 
 select * from A left join B on A.id = B.id
