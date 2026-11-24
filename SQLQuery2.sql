@@ -9,13 +9,6 @@ EMP_SAL decimal
 );
 
 
---during insert the values in table there are some rules which need to be in mind
---1. all column value must need 
---insert into Employee values (1,'priti', '2025-02-23 10:45:45:000', 3000.78)
---2. preference should be same as declare at the time of table creation
---insert into Employee values (1,'priti','2025-02-23 10:45:45:000','pune', 3000.78)
-
-
 --single row insert
 insert into Employee values (1,'priti','pune', '2025-02-23 10:45:45:000', 3000.78)
 
