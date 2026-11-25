@@ -1,28 +1,5 @@
 use company;
---PART A – 5 THEORETICAL INTERVIEW QUESTIONS
---Q1. What is a SQL JOIN?
---Explain why JOINs are used in relational databases and why data is commonly stored across multiple related
-tables.
-joins is used to extract the data when we need to extratct data from both table anf if their is relationship 
-between them.
-Its possible to store all data in one table but created more confusion we were not storing efficient record in hat 
-manner 
 
- --Q2. INNER JOIN vs LEFT JOIN
---Explain the difference between INNER JOIN and LEFT JOIN with respect to matched and unmatched records.
-inner join extract only the matching records but left join extract all left table record and matched right 
-side as well if it not match with left then it replace with null.
-
- 
---Q3. LEFT JOIN vs RIGHT JOIN
---Explain the difference between LEFT JOIN and RIGHT JOIN. Can changing table order produce the same 
---business result?
-left join extract left tble all record and right side matching record and in right join it will extract right 
-side all record and only matching record og left side and replace the null value in unmatched record
-No, if we change the table order then definetly it will change the result beause we are replacing right eith left then
-it gives result according to that
-let see one ex:
-we have two table student and department if we join that see the result
 select * from student;
 select * from dept;
 insert into dept values
